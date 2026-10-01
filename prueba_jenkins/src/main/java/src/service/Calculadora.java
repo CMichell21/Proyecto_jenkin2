@@ -1,0 +1,28 @@
+
+package src.service;
+
+
+public class Calculadora {
+   
+    public static int getsuma(int numero1, int numero2){
+        int resultado= numero1 + numero2;
+        return resultado;
+    }
+    
+    public static int getresta(int numero1, int numero2){
+        int resultado=numero1 - numero2;
+        return resultado;
+    }
+    
+    public static int getmultiplicacion(int numero1, int numero2){
+        int resultado=numero1 * numero2;
+        return resultado;
+    }
+    
+    public static int getdivision(int numero1, int numero2){
+        int resultado= numero1/numero2;
+        return resultado;
+    }
+
+    
+}

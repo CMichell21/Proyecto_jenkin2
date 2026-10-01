@@ -1,0 +1,58 @@
+
+package src.service;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import src.model.SolicitudPost;
+import src.model.RespuestaPost;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class FuncionesService {
+     public static boolean MayorEdad(int numero){
+        if (numero<=18){
+            return false;
+            
+        }else{
+            return true;
+        }
+    }
+    
+    public static String calculadoranumeros(String body) throws JsonProcessingException{
+        int opcion=0;
+        
+        ObjectMapper mapper= new ObjectMapper();
+        SolicitudPost solicitud =mapper.readValue(body,SolicitudPost.class);
+        int respuesta = 0;
+        String mensaje = null;
+        
+        if (solicitud.getOpcion()>=5){
+            mensaje="Opcion no valida ingresada";
+            respuesta=0;
+        }
+        
+        if(solicitud.getOpcion()<5){
+            mensaje="Operación valida";
+        }
+ 
+        if (solicitud.getOpcion()==1){
+                
+            respuesta =Calculadora.getsuma(solicitud.getNumero1(),solicitud.getNumero2());    
+        }
+        
+        if(solicitud.getOpcion()==2){
+            respuesta= Calculadora.getresta(solicitud.getNumero1(),solicitud.getNumero2()); 
+        }
+        
+        if(solicitud.getOpcion()==3){
+            respuesta= Calculadora.getmultiplicacion(solicitud.getNumero1(),solicitud.getNumero2());
+        }
+        
+        if(solicitud.getOpcion()==4){
+            respuesta= Calculadora.getdivision(solicitud.getNumero1(),solicitud.getNumero2());
+        }
+        
+        RespuestaPost resultado=new RespuestaPost(mensaje,respuesta);
+        
+        String resultadopost=mapper.writeValueAsString(resultado);
+        
+        return resultadopost;
+    }
+}

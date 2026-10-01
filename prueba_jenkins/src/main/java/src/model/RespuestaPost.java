@@ -1,0 +1,30 @@
+package src.model;
+
+
+public class RespuestaPost {
+    private String mensaje;
+    private int resultado;
+
+    public RespuestaPost(String mensaje, int resultado) {
+        this.mensaje = mensaje;
+        this.resultado = resultado;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public int getResultado() {
+        return resultado;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public void setResultado(int resultado) {
+        this.resultado = resultado;
+    }
+    
+    
+}

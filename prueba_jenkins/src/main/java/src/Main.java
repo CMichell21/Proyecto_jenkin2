@@ -1,0 +1,53 @@
+
+package src;
+
+import static src.service.FuncionesService.calculadoranumeros;
+import com.sun.net.httpserver.HttpServer;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+
+public class Main {
+
+     public static void main(String[] args) throws IOException {
+        
+        HttpServer servidor = HttpServer.create(new InetSocketAddress(8080),0);
+        
+        servidor.createContext("/calculadora", exchange -> {
+
+            if (!exchange.getRequestMethod().equals("POST")) {
+                exchange.sendResponseHeaders(405, -1);
+                exchange.close();
+            }
+        
+            String body=new String(
+                    exchange.getRequestBody().readAllBytes()
+            );
+            
+            String respuesta=calculadoranumeros(body);
+            byte[] datos = respuesta.getBytes();
+
+            exchange.getResponseHeaders().set("Content-Type", "application/json");
+            
+            exchange.sendResponseHeaders(200, datos.length);
+            exchange.getResponseBody().write(datos);
+            exchange.getResponseBody().close();
+
+        });
+        servidor.start();
+        System.out.println("Servidor abierto en el puesto 8080");
+        /*Scanner entrada=new Scanner(System.in);
+        System.out.println( "Ingrese su edad:");
+        int numero=entrada.nextInt();
+        
+        boolean valor=MayorEdad(numero);
+        
+        if (valor==true){
+           calculadoranumeros(entrada);
+     
+        }
+        else {
+            System.out.println("Lo sentimos mucho, no puedes continuar dado que eres menor de edad");
+        }*/
+        
+    }
+}
