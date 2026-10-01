@@ -9,7 +9,7 @@ pipeline {
         stage('Pruebas unitarias') {
             steps {
                 dir('prueba_jenkins') {
-                    bat 'mvn test'
+                    sh 'mvn test'
                 }
             }
         }
@@ -17,14 +17,14 @@ pipeline {
         stage('Compilar WAR') {
             steps {
                 dir('prueba_jenkins') {
-                    bat 'mvn clean package -DskipTests'
+                    sh 'mvn clean package -DskipTests'
                 }
             }
         }
         stage('Verificar WAR') {
             steps {
                 dir('prueba_jenkins') {
-                    bat 'dir target'
+                    sh 'dir target'
                 }
             }
         }
